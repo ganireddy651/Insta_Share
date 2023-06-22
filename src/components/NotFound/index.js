@@ -1,0 +1,33 @@
+import {withRouter} from 'react-router-dom'
+import './index.css'
+
+const NotFound = props => {
+  const onClickNavigateToHome = () => {
+    const {history} = props
+    history.replace('/')
+  }
+
+  return (
+    <div className="not-found-container">
+      <img
+        className="not-found-image"
+        src="https://res.cloudinary.com/dky69roxl/image/upload/v1687415338/erroring_1_pejmlx.png"
+        alt="not found"
+      />
+      <h1 className="not-found-heading">Page Not Found</h1>
+      <p className="not-found-description">
+        we are sorry, the page you requested could not be found. Please go back
+        to the homepage.
+      </p>
+      <button
+        onClick={onClickNavigateToHome}
+        className="not-found-btn"
+        type="button"
+      >
+        Home Page
+      </button>
+    </div>
+  )
+}
+
+export default withRouter(NotFound)
