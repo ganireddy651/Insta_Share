@@ -86,3 +86,6 @@
   width: 86px;
   height: 32px;
 }
+.link {
+  text-decoration: none;
+}

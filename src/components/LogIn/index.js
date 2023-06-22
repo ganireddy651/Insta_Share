@@ -1,15 +1,33 @@
 import {Component} from 'react'
+import {Redirect} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import './index.css'
 
-const apiStatus = {
-  initial: 'INITIAL',
-  success: 'SUCCESS',
-  failure: 'FAILURE',
-  in_progress: 'IN_PROGRESS',
-}
+// const apiStatus = {
+//   initial: 'INITIAL',
+//   success: 'SUCCESS',
+//   failure: 'FAILURE',
+//   in_progress: 'IN_PROGRESS',
+// }
 
 class LogIn extends Component {
-  state = {username: '', password: '', status: apiStatus.initial}
+  state = {
+    username: '',
+    password: '',
+    errorMessage: '',
+  }
+
+  onSuccessView = jwtToken => {
+    const {history} = this.props
+
+    Cookies.set('jwt_token', jwtToken, {expires: 30})
+
+    history.replace('/')
+  }
+
+  onFailureView = errorMessage => {
+    this.setState({errorMessage})
+  }
 
   onChangeUsername = e => {
     this.setState({username: e.target.value})
@@ -24,24 +42,28 @@ class LogIn extends Component {
 
     const {username, password} = this.state
     const userDetails = {username, password}
-  }
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(userDetails),
+    }
 
-  renderData = () => {
-    const {status} = this.state
-    switch (status) {
-      case apiStatus.success:
-        return this.renderSuccessView()
-      case apiStatus.failure:
-        return this.renderFailureView()
-      case apiStatus.in_progress:
-        return this.renderLoadingView()
-      default:
-        return null
+    const response = await fetch('https://apis.ccbp.in/login', options)
+    const data = await response.json()
+    if (response.ok === true) {
+      this.onSuccessView(data.jwt_token)
+    } else {
+      this.onFailureView(data.error_msg)
     }
   }
 
   render() {
-    const {username, password} = this.state
+    const {username, password, errorMessage} = this.state
+
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+      return <Redirect to="/" />
+    }
+
     return (
       <div className="login-container">
         <div className="login-image-container">
@@ -84,15 +106,15 @@ class LogIn extends Component {
               value={password}
               id="password"
               className="input"
-              type="text"
+              type="password"
               placeholder="Password"
             />
           </div>
           <button type="submit" className="login-btn">
             Login
           </button>
+          <p className="error-message">{errorMessage}</p>
         </form>
-        {this.renderData()}
       </div>
     )
   }
