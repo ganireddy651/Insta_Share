@@ -4,3 +4,8 @@
   background-size: cover;
   padding: 5px 100px;
 }
+.story-list-container {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+}

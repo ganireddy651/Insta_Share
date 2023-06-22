@@ -1,0 +1,13 @@
+/* .slider-container {
+  background-color: transparent;
+  padding: 40px;
+} */
+.story-container {
+  display: flex;
+}
+.story-image {
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  margin: 10px;
+}

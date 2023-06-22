@@ -1,10 +1,16 @@
-import {withRouter} from 'react-router-dom'
+import {withRouter, Redirect} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import './index.css'
 
 const NotFound = props => {
   const onClickNavigateToHome = () => {
     const {history} = props
     history.replace('/')
+  }
+
+  const jwtToken = Cookies.get('jwt_token')
+  if (jwtToken === undefined) {
+    return <Redirect to="/login" />
   }
 
   return (

@@ -3,13 +3,6 @@ import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import './index.css'
 
-// const apiStatus = {
-//   initial: 'INITIAL',
-//   success: 'SUCCESS',
-//   failure: 'FAILURE',
-//   in_progress: 'IN_PROGRESS',
-// }
-
 class LogIn extends Component {
   state = {
     username: '',
