@@ -59,7 +59,7 @@ class UserProfile extends Component {
 
   renderSuccessView = () => {
     const {userDetails} = this.state
-    console.log(userDetails)
+    // console.log(userDetails)
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken === undefined) {
       return <Redirect to="/login" />
@@ -148,7 +148,6 @@ class UserProfile extends Component {
         return this.renderFailureView()
       case 'inprogress':
         return this.renderInprogressView()
-
       default:
         return null
     }
