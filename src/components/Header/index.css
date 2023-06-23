@@ -88,3 +88,8 @@
 .link {
   text-decoration: none;
 }
+@media screen and (min-width: 576px) {
+  .hamburger-icon {
+    display: none;
+  }
+}

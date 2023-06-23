@@ -2,6 +2,7 @@ import {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
+import SearchContext from '../../context/SearchContext'
 import Header from '../Header'
 import UserStories from '../UserStories'
 import Posts from '../Posts'
@@ -17,6 +18,7 @@ const apiStatus = {
 class Home extends Component {
   state = {
     status: apiStatus.initial,
+    searchInput: '',
     posts: [],
   }
 
@@ -31,6 +33,7 @@ class Home extends Component {
   getPostsData = async () => {
     this.setState({status: apiStatus.in_progress})
     const jwtToken = Cookies.get('jwt_token')
+    const {searchInput} = this.state
 
     const options = {
       method: 'GET',
@@ -40,12 +43,13 @@ class Home extends Component {
     }
 
     const response = await fetch(
-      'https://apis.ccbp.in/insta-share/posts',
+      `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`,
       options,
     )
     const data = await response.json()
+    console.log(data)
 
-    if (response.ok === true) {
+    if (response.ok === true && data.posts.length !== 0) {
       const convertedPostsData = data.posts.map(eachPost => ({
         postId: eachPost.post_id,
         profilePic: eachPost.profile_pic,
@@ -61,9 +65,15 @@ class Home extends Component {
         posts: convertedPostsData,
         status: apiStatus.success,
       })
+    } else if (data.posts.length === 0) {
+      this.setState({status: 'noPost'})
     } else {
       this.setState({status: apiStatus.failure})
     }
+  }
+
+  changeSearchInput = search => {
+    this.setState({searchInput: search}, this.getPostsData)
   }
 
   renderPosts = () => {
@@ -75,6 +85,8 @@ class Home extends Component {
         return this.renderPostsFailureView()
       case apiStatus.in_progress:
         return this.renderPostsLoaderView()
+      case 'noPost':
+        return this.noPostView()
       default:
         return null
     }
@@ -117,14 +129,21 @@ class Home extends Component {
     if (jwtToken === undefined) {
       return <Redirect to="/login" />
     }
+    const {searchInput} = this.state
+    console.log(searchInput)
+
     return (
-      <>
-        <Header />
-        <div className="home-page-container">
-          <UserStories />
-          <div className="posts-container">{this.renderPosts()}</div>
-        </div>
-      </>
+      <SearchContext.Provider
+        value={{searchInput, changeSearchInput: this.changeSearchInput}}
+      >
+        <>
+          <Header />
+          <div className="home-page-container">
+            <UserStories />
+            <div className="posts-container">{this.renderPosts()}</div>
+          </div>
+        </>
+      </SearchContext.Provider>
     )
   }
 }

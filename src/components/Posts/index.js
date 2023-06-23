@@ -9,9 +9,9 @@ import {FcLike} from 'react-icons/fc'
 import './index.css'
 
 class Posts extends Component {
-  state = {isUserLike: false}
+  state = {isUserLike: false, count: 0}
 
-  likeIconClick = async postId => {
+  likeIconClick = async (postId, likesCount) => {
     const jwtToken = Cookies.get('jwt_token')
     const data = {
       like_status: true,
@@ -24,8 +24,10 @@ class Posts extends Component {
       body: JSON.stringify(data),
     }
     await fetch(`https://apis.ccbp.in/insta-share/posts/${postId}/like`, option)
+
     this.setState(preState => ({
       isUserLike: !preState.isUserLike,
+      count: likesCount + 1,
     }))
   }
 
@@ -59,7 +61,7 @@ class Posts extends Component {
       userId,
       postId,
     } = each
-    const {isUserLike} = this.state
+    const {isUserLike, count} = this.state
 
     const updatedPostDetails = {
       caption: postDetails.caption,
@@ -97,13 +99,18 @@ class Posts extends Component {
           ) : (
             <BsHeart
               className="heart-icon"
-              onClick={() => this.likeIconClick(postId)}
+              onClick={() => this.likeIconClick(postId, likesCount)}
             />
           )}
 
           <FaRegComment className="comment-icon" />
           <BiShareAlt className="share-icon" />
-          <p className="likes-count">{likesCount} likes</p>
+          {isUserLike ? (
+            <p className="likes-count">{count} likes</p>
+          ) : (
+            <p className="likes-count">{likesCount} likes</p>
+          )}
+
           <p className="caption">{updatedPostDetails.caption}</p>
           <ul className="comment-list_container">
             {comments.map(eachComment => (
