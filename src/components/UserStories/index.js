@@ -27,7 +27,7 @@ class UserStories extends Component {
     const jwtToken = Cookies.get('jwt_token')
 
     const options = {
-      method: 'get',
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${jwtToken}`,
       },
@@ -75,7 +75,7 @@ class UserStories extends Component {
       infinite: true,
       speed: 500,
       slidesToShow: 6,
-      slidesToScroll: 3,
+      slidesToScroll: 6,
       initialSlide: 0,
       responsive: [
         {
