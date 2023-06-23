@@ -33,18 +33,17 @@
   height: 28px;
   border-radius: 3px;
   border: 1px solid #dbdbdb;
-  background: #fafafa;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .search-input {
-  color: #989898;
+  color: #000000;
   font-size: 12px;
   font-family: Roboto;
   border: none;
   outline: none;
-  margin: 0 10px;
+  margin-left: 3px;
   width: 100%;
 }
 .search-button {
@@ -73,7 +72,7 @@
   margin-right: 16px;
   color: #262626;
   font-size: 14px;
-  font-family: Roboto;
+  font-family: 'Roboto';
   font-weight: 500;
   line-height: 18px;
 }
