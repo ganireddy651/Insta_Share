@@ -56,7 +56,7 @@ class Home extends Component {
         postDetails: eachPost.post_details,
         comments: eachPost.comments,
       }))
-      console.log(convertedPostsData)
+      //   console.log(convertedPostsData)
       this.setState({
         posts: convertedPostsData,
         status: apiStatus.success,
@@ -82,7 +82,6 @@ class Home extends Component {
 
   renderPostsSuccessView = () => {
     const {posts} = this.state
-    // const {} = posts
     return (
       <>
         <ul className="posts-list-container">

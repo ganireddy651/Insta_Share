@@ -1,8 +1,10 @@
+import {Link, withRouter} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import {BsHeart} from 'react-icons/bs'
 import {FaRegComment} from 'react-icons/fa'
 import {BiShareAlt} from 'react-icons/bi'
-import {FcLike} from 'react-icons/fc'
-// import Comments from '../Comments'
+// import {FcLike} from 'react-icons/fc'
+
 import './index.css'
 
 const Posts = props => {
@@ -14,17 +16,30 @@ const Posts = props => {
     createdAt,
     postDetails,
     comments,
+    userId,
   } = each
+
   const updatedPostDetails = {
     caption: postDetails.caption,
     imageUrl: postDetails.image_url,
   }
 
+  const jwtToken = Cookies.get('jwt_token')
+
+  if (jwtToken === undefined) {
+    const {history} = props
+    history.replace('/login')
+  }
+
   return (
     <li className="post-card">
       <div className="post-header">
-        <img className="profile-pic" src={profilePic} alt="profile pic" />
-        <p className="username">{userName}</p>
+        <Link to={`/users/${userId}`} className="link">
+          <img className="profile" src={profilePic} alt="profile pic" />
+        </Link>
+        <Link to={`/users/${userId}`} className="link">
+          <p className="username">{userName}</p>
+        </Link>
       </div>
       <img
         className="post-image"
@@ -55,4 +70,4 @@ const Posts = props => {
   )
 }
 
-export default Posts
+export default withRouter(Posts)

@@ -12,7 +12,7 @@
   align-items: center;
   padding: 10px;
 }
-.profile-pic {
+.profile {
   height: 35px;
   width: 35px;
   border-radius: 35px;
@@ -86,4 +86,7 @@
 }
 .span-text-comment {
   font-weight: 600;
+}
+.link {
+  text-decoration: none;
 }
