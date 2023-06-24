@@ -66,7 +66,9 @@
   align-items: center;
 }
 .loader-container {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .userName {
   color: #262626;

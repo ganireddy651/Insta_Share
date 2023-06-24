@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Link, withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import {BsHeart} from 'react-icons/bs'
 import {FaRegComment} from 'react-icons/fa'
@@ -117,8 +117,8 @@ class Posts extends Component {
               <li key={eachComment.user_id}>
                 <p className="comment">
                   <span className="span-text-comment">
-                    {eachComment.user_name}
-                  </span>{' '}
+                    {eachComment.user_name}{' '}
+                  </span>
                   {eachComment.comment}
                 </p>
               </li>
@@ -131,4 +131,4 @@ class Posts extends Component {
   }
 }
 
-export default withRouter(Posts)
+export default Posts

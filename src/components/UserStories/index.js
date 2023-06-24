@@ -147,7 +147,7 @@ class UserStories extends Component {
 
   renderLoaderView = () => (
     <div className="loader-container" data-testid="loader">
-      <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
+      <Loader type="TailSpin" color="#f0f3f7" height={50} width={50} />
     </div>
   )
 
