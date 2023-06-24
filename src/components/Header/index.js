@@ -16,7 +16,6 @@ const Header = props => {
       {value => {
         const {searchInput, changeSearchInput} = value
         const onSearchChange = e => {
-          console.log(e.target.value)
           changeSearchInput(e.target.value)
         }
         return (

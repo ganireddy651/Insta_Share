@@ -84,7 +84,7 @@ class UserStories extends Component {
             slidesToShow: 5,
             slidesToScroll: 3,
             infinite: true,
-            dots: true,
+            dots: false,
           },
         },
         {
@@ -93,6 +93,7 @@ class UserStories extends Component {
             slidesToShow: 2,
             slidesToScroll: 2,
             initialSlide: 2,
+            dots: false,
           },
         },
         {
@@ -100,6 +101,7 @@ class UserStories extends Component {
           settings: {
             slidesToShow: 2,
             slidesToScroll: 1,
+            dots: false,
           },
         },
       ],

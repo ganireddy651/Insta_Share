@@ -47,7 +47,6 @@ class Home extends Component {
       options,
     )
     const data = await response.json()
-    console.log(data)
 
     if (response.ok === true && data.posts.length !== 0) {
       const convertedPostsData = data.posts.map(eachPost => ({
@@ -60,7 +59,7 @@ class Home extends Component {
         postDetails: eachPost.post_details,
         comments: eachPost.comments,
       }))
-      //   console.log(convertedPostsData)
+
       this.setState({
         posts: convertedPostsData,
         status: apiStatus.success,
@@ -124,13 +123,26 @@ class Home extends Component {
     </div>
   )
 
+  noPostView = () => (
+    <>
+      <div className="no-search-results-container">
+        <img
+          src="https://res.cloudinary.com/dky69roxl/image/upload/v1687581557/Group_ufwy4f.png "
+          alt="No Results"
+        />
+        <h2 className="no-search-found">Search Not Found</h2>
+        <p className="search-again">Try different keyword or search again</p>
+      </div>
+    </>
+  )
+
   render() {
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken === undefined) {
       return <Redirect to="/login" />
     }
     const {searchInput} = this.state
-    console.log(searchInput)
+    console.log(searchInput.length)
 
     return (
       <SearchContext.Provider
